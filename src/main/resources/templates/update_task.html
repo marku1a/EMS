@@ -4,8 +4,51 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Employee Management System</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<style>
+        body {
+            background-color: #f0f0f0;
+            font-family: arial, sans-serif;
+            padding-left: 100px;
+        }
+        h1 {
+            font-size: 36px;
+        }
+        h2 {
+            font-size: 30px;
+        }
+        .form{
+            font-size: 20px;
+            display: block;
+            padding: 8px 130px 8px 22px;
+            border-style: solid;
+            border-color: #87cefa;
+            border-width: 1px;
+            border-radius: 25px;
+            margin-bottom: 12px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+       .form:focus {
+        	border: 2px;
+        	outline: solid;
+            outline-color: #87cefa; 
+        }
+        .btn {
+            background-color: #007bff;
+            color:#fff;
+            border: none;
+            border-radius: 25px;
+            padding: 14px 40px;
+            margin: 15px 95px 10px;
+            font-size: 18px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        @media (max-width: 600px) {
+            body{
+                padding-left: 5px;
+            }
+        }
+    </style>
+    
 </head>
 
 <body>
@@ -19,20 +62,20 @@
             <!-- Add hidden form field to handle update -->
             <input type="hidden" th:field="*{id}" />
 
-            <input type="text" th:field="*{taskName}" class="form-control mb-4 col-4">
+            <input type="text" th:field="*{taskName}" class="form">
 
-            <input type="text" th:field="*{status}" class="form-control mb-4 col-4">
+            <input type="text" th:field="*{status}" class="form">
 
-            <input type="date" th:field="*{dueDate}" th:value="${formattedDueDate}" class="form-control mb-4 col-4">
+            <input type="date" th:field="*{dueDate}" th:value="${formattedDueDate}" class="form">
 			<script th:inline="javascript">
    				 var dueDate = /*[[ ${formattedDueDate} ]]*/; // Fetch the formattedDueDate from the model
    				 document.getElementById("dueDate").value = dueDate;
 			</script>
             
-            <select th:field="*{assignee}" class="form-control mb-3" style="max-width: 400px">
+            <select th:field="*{assignee}" class="form" style="max-width: 400px">
         		<option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.name + ' ' + employee.surname}"></option>
     		</select>
-            <button type="submit" class="btn btn-info col-2"> Update Task</button>
+            <button type="submit" class="btn"> Update Task</button>
         </form>
 
         <hr>
