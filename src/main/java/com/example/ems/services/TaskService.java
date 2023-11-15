@@ -37,4 +37,8 @@ public class TaskService {
 	        return false;
 	    }
 	}
+	
+	public List<Task> getCompletedTasksByEmployee(Employee employee) {
+		return taskRepo.findByAssigneeAndStatus(employee, Status.Completed);
+	}
 }

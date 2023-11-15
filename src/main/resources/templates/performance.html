@@ -63,27 +63,27 @@
        
 
        
-        .add-employee-btn {
+        .employee-btn {
             background-color: #06c258;
-            border: none;
-            padding: 15px 30px;
             border-radius: 5px;
+            border: none;
+            padding: 15px;
+            width: 120px;
             color: #fff;
             text-align: center;
             display: inline-block;
             text-decoration: none;
-            
-            
         }
-        .add-employee-btn:hover {
+        .employee-btn:hover {
         	background-color: #06a94d;
         	}
-
+    
         .tasks-btn {
             background-color: #007bff;
             border-radius: 5px;
             border: none;
-            padding: 15px 60px;
+            padding: 15px;
+            width: 120px;
             color: #fff;
             text-align: center;
             display: inline-block;
@@ -97,27 +97,18 @@
             background-color: #17a2b8; 
             border: none;
             border-radius: 6px;
-            padding: 10px 5px;
+            padding: 4px 4px;
             color: #fff;
             text-align: center;
-            text-decoration: none;
-            
+            text-decoration: none; 
+            margin-top: 5px; 
+
         }
         .update-btn:hover {
             background-color: #1686a6; 
         }
 
-        .delete-btn {
-            background-color: #dc3545;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 6px;
-            color: #fff;
-            text-decoration: none;
-        }
-        .delete-btn:hover {
-            background-color: #c22f3d;
-        }
+     
         .id {
         width: 13px;
         
@@ -132,50 +123,52 @@
                 
             }
         }
-        @media (max-width: 900px) {
-            .update-btn {
-                display: block;
-                width: fit-content;
-                padding: 5px 5px;
-            }
-            .delete-btn {
-                display: block;
-                width:fit-content;
-                padding: 5px 8px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Employee List</h1>
+        <h1>Employee Performance</h1>
         <div class="btn-container">
-            <a th:href="@{/showNewEmployeeForm}" class="btn-action add-employee-btn">Add Employee</a>
+            <a th:href="@{/employees}" class="btn-action employee-btn">Employees</a>
             <a th:href="@{/tasks}" class="btn-action tasks-btn">Tasks</a>
+            <form th:action="@{/updatePerformance}" method="post">
+                <button type="submit" class="update-btn">Update</button>
+            </form>
         </div>
+        
+            
+        
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
                     	<th class="id">Id</th>
-                        <th>Name</th>
-                        <th>Surname</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Actions</th>
+                    	<th>Name</th>
+                        <th>2nd last</th>
+                        <th>%</th>
+                        <th>Last month</th>
+                        <th>%</th>
+                        <th>Current</th>
+                        <th>%</th>
+                        <th>Tasks sum</th>
+                        <th>%</th>
+                      
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="employee : ${listEmployees}">
-                    	<td th:text="${employee.id}"></td>
-                        <td th:text="${employee.name}"></td>
-                        <td th:text="${employee.surname}"></td>
-                        <td th:text="${employee.email}"></td>
-                        <td th:text="${employee.phone}"></td>
-                        <td>
-                            <a th:href="@{/showUpdateEmployeeForm/{id}(id=${employee.id})}" class="update-btn">Update</a>
-                            <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}" class="delete-btn">Delete</a>
-                        </td>
+                    <tr th:each="performance : ${listPerformance}">
+                    	<td th:text="${performance.id}"></td>
+                    	<td th:text="${performance.employee.name + ' ' + performance.employee.surname}"></td>
+                        <td th:text="${performance.taskTwo}"></td>
+                        <td th:text="${performance.inTimeTwo}"></td>
+                        <td th:text="${performance.taskOne}"></td>
+                        <td th:text="${performance.inTimeOne}"></td>
+                        <td th:text="${performance.taskNow}"></td>
+                        <td th:text="${performance.inTimeNow}"></td>
+                        <td th:text="${performance.taskSum}"></td>
+                        <td th:text="${performance.inTimeSum}"></td>
+                       
+                        
                     </tr>
                 </tbody>
             </table>

@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 
 @Service
-
 public class EmployeeService {
 	@Autowired
 	private EmployeeRepository empRepo;
@@ -39,12 +38,6 @@ public class EmployeeService {
 	    } else {
 	        return false;
 	    }
-	}
-	public Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
-		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
-			Sort.by(sortField).descending();
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-		return this.empRepo.findAll(pageable);
 	}
 	
 }
