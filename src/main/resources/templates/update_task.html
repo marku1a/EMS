@@ -71,6 +71,11 @@
    				 var dueDate = /*[[ ${formattedDueDate} ]]*/; // Fetch the formattedDueDate from the model
    				 document.getElementById("dueDate").value = dueDate;
 			</script>
+			<input type="date" th:field="*{complDate}" th:value="${formattedComplDate}" class="form">
+			<script th:inline="javascript">
+   				 var complDate = /*[[ ${formattedComplDate} ]]*/; 
+   				 document.getElementById("complDate").value = complDate;
+			</script>
             
             <select th:field="*{assignee}" class="form" style="max-width: 400px">
         		<option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.name + ' ' + employee.surname}"></option>

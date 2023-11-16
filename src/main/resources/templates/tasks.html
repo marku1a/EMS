@@ -144,6 +144,7 @@
 				<th>Task</th>	
 				<th>Status</th>
 				<th>Due date</th>
+				<th>Completed</th>
 				<th>Assignee</th>
 				<th>Actions</th>
 			</tr>
@@ -153,6 +154,7 @@
 				<td th:text="${task.taskName}"></td>
 				<td th:text="${task.status}"></td>
 				<td th:text="${task.dueDate}"></td>
+				<td th:text="${task.complDate}"></td>
 				<td th:text="${task.assignee.name + ' ' + task.assignee.surname}"></td>
 				<td><a th:href="@{/showUpdateTaskForm/{id}(id=${task.id})}" class="update-btn">Update</a>
 				<a th:href="@{/deleteTask/{id}(id=${task.id})}" class="delete-btn">Delete</a>

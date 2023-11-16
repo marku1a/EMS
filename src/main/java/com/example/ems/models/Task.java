@@ -27,8 +27,11 @@ public class Task {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	@Column(name = "due_date")
-	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dueDate;
+	@Column(name = "compl_date")
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	private LocalDate complDate;
 	@ManyToOne
     @JoinColumn(name = "assignee_id")
 	private Employee assignee;
@@ -36,7 +39,7 @@ public class Task {
 	
 	public Task() {};
 	
-	public Task(String taskName, Status status, LocalDate dueDate, Employee assignee) {
+	public Task(String taskName, Status status, LocalDate dueDate, LocalDate complDate, Employee assignee) {
 		this.taskName = taskName;
 		this.status = status;
 		this.dueDate = dueDate;
@@ -75,5 +78,10 @@ public class Task {
     public void setAssignee(Employee assignee) {
         this.assignee = assignee;
     }
-	
+    public LocalDate getComplDate() {
+    	return complDate;
+    }
+    public void setComplDate(LocalDate complDate) {
+    	this.complDate = complDate;
+    }
 }

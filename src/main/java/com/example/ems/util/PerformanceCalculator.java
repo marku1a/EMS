@@ -13,7 +13,7 @@ import com.example.ems.models.Task;
 public class PerformanceCalculator {
 
 	public static Performance calculator(Employee employee, List<Task> tasks) {
-		System.out.println("Calculating performance for employee: " + employee.getId());
+
 		LocalDate now = LocalDate.now();
 		LocalDate oneAgo = now.minusMonths(1);
 		LocalDate twoAgo = now.minusMonths(2);
@@ -31,43 +31,63 @@ public class PerformanceCalculator {
 		Integer taskOne = tasksOneAgo.size();
 		Integer taskTwo = tasksTwoAgo.size();
 		
+		Integer taskSum = taskTwo + taskOne + taskNow;
+		performance.setTaskSum(taskSum);
+		
 		//Counts the number of tasks finished till due date
 		Integer inTimeNow = inTimeCounter(tasksNow);
 		Integer inTimeOne = inTimeCounter(tasksOneAgo);
 		Integer inTimeTwo = inTimeCounter(tasksTwoAgo);
+		
+		//Calculation for inTimeSum
+		Integer inTimeSum = 0;
+		Integer[] inTimeArr = {inTimeNow, inTimeOne, inTimeTwo};
+		Integer[] taskArr = {taskNow, taskOne, taskTwo};
+		int count = 0;
+		for (int i = 0; i < inTimeArr.length; i++) {
+			if (taskArr[i] != null && taskArr[i] > 0) {
+				inTimeSum += (inTimeArr[i] * 100) / taskArr[i];
+				count++;
+			}
+		}
+		if (count == 3) {
+			performance.setInTimeSum(inTimeSum/3);
+		} else if (count == 2) {
+			performance.setInTimeSum(inTimeSum/2);
+		} else {
+			performance.setInTimeSum(inTimeSum);
+		}
+		
+		
 		
 		performance.setTaskNow(taskNow);
 		performance.setTaskOne(taskOne);
 		performance.setTaskTwo(taskTwo);
 		
 		if (taskNow > 0) {
-			Integer inTime = (inTimeNow / taskNow) * 100;
+			Integer inTime = inTimeNow * 100 / taskNow;
 			performance.setInTimeNow(inTime);	
 		}
 		if (taskOne > 0) {
-			Integer inTime = ( inTimeOne / taskOne) * 100;
+			Integer inTime = inTimeOne * 100 / taskOne;
 			performance.setInTimeOne(inTime);
 		}
 		if (taskTwo > 0) {
-			Integer inTime = ( inTimeTwo / taskTwo) * 100;
+			Integer inTime = inTimeTwo * 100 / taskTwo;
 			performance.setInTimeTwo(inTime);
 		}
 		
-		Integer taskSum = taskTwo + taskOne + taskNow;
-		performance.setTaskSum(taskSum);
 		
-		Integer inTimeSum = inTimeTwo + inTimeOne + inTimeNow;
-		performance.setInTimeSum(inTimeSum);
 		
 		
 		return performance;
-	}
+}
 	
 	private static List<Task> filterTasksForPeriod(List<Task> tasks, LocalDate startDate, LocalDate endDate) {
 		List<Task> filtered = new ArrayList<>();
 		for (Task task : tasks) {
-			LocalDate taskDueDate = task.getDueDate();
-			if(!taskDueDate.isBefore(startDate) && !taskDueDate.isAfter(endDate)) {
+			LocalDate taskComplDate = task.getComplDate();
+			if(!taskComplDate.isBefore(startDate) && !taskComplDate.isAfter(endDate)) {
 				filtered.add(task);
 			}
 		}
@@ -77,12 +97,14 @@ public class PerformanceCalculator {
 	private static int inTimeCounter(List<Task> tasks) {
 		int counter = 0;
 		for (Task task : tasks) {
-			if (task.getStatus() == Status.Completed) {
+			if (task.getStatus() == Status.Completed && !task.getComplDate().isAfter(task.getDueDate())) {
 				counter++;
 			}
 		}
 		return counter;
 	}
+	
+	
 	
   
     
