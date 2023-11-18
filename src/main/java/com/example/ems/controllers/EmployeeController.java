@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.ems.models.Employee;
 import com.example.ems.services.EmployeeService;
-import com.example.ems.services.PerformanceService;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +24,7 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
-	@Autowired
-	private PerformanceService performanceService;
+
 	
 	//Shows all employees
 	@GetMapping("/employees")

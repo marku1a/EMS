@@ -57,10 +57,11 @@
         <h2>Create new task</h2>
 
         <form action="#" th:action="@{/createNewTask}" th:object="${task}" method="POST">
-            <input type="text" th:field="*{taskName}" placeholder="Task" class="form" style="max-width: 400px" >
-            <input type="text" th:field="*{status}" placeholder="Status" class="form" style="max-width: 400px">
-            <input type="date" th:field="*{dueDate}" placeholder="Due date" class="form" style="max-width: 400px">
-            <select th:field="*{assignee}" class="form" style="max-width: 400px">
+            <input type="text" th:field="*{taskName}" placeholder="Task" class="form" required>
+            <input type="text" th:field="*{status}" placeholder="Status" class="form" required>
+            <input type="date" th:field="*{dueDate}" placeholder="Due date" class="form"  required>
+            <select th:field="*{assignee}" class="form">
+            	<option value="" selected>Select an employee</option>
         		<option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.name + ' ' + employee.surname}"></option>
     		</select>
 			<button type="submit" class="btn"> Save task</button>

@@ -64,7 +64,7 @@
 
        
         .employee-btn {
-            background-color: #06c258;
+            background-color: #007bff;
             border-radius: 5px;
             border: none;
             padding: 15px;
@@ -73,9 +73,10 @@
             text-align: center;
             display: inline-block;
             text-decoration: none;
+            transition: background-color 0.3s;
         }
         .employee-btn:hover {
-        	background-color: #06a94d;
+        	background-color: #0059ff;
         	}
     
         .tasks-btn {
@@ -88,6 +89,7 @@
             text-align: center;
             display: inline-block;
             text-decoration: none;
+            transition: background-color 0.3s;
         }
         .tasks-btn:hover {
         	background-color: #0059ff;
@@ -102,6 +104,7 @@
             text-align: center;
             text-decoration: none; 
             margin-top: 5px; 
+            transition: background-color 0.2s;
 
         }
         .update-btn:hover {
@@ -152,6 +155,7 @@
                         <th>%</th>
                         <th>Tasks sum</th>
                         <th>%</th>
+                        <th>Raise</th>
                       
                     </tr>
                 </thead>
@@ -167,6 +171,7 @@
                         <td th:text="${performance.inTimeNow}"></td>
                         <td th:text="${performance.taskSum}"></td>
                         <td th:text="${performance.inTimeSum}"></td>
+                        <td th:if="${performance.raise != null}" th:text="${performance.raise ? 'Yes' : 'No'}"></td>
                        
                         
                     </tr>

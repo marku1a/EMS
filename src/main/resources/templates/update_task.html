@@ -61,12 +61,9 @@
 
             <!-- Add hidden form field to handle update -->
             <input type="hidden" th:field="*{id}" />
-
-            <input type="text" th:field="*{taskName}" class="form">
-
-            <input type="text" th:field="*{status}" class="form">
-
-            <input type="date" th:field="*{dueDate}" th:value="${formattedDueDate}" class="form">
+            <input type="text" th:field="*{taskName}" class="form" required>
+            <input type="text" th:field="*{status}" class="form" required>
+            <input type="date" th:field="*{dueDate}" th:value="${formattedDueDate}" class="form" required>
 			<script th:inline="javascript">
    				 var dueDate = /*[[ ${formattedDueDate} ]]*/; // Fetch the formattedDueDate from the model
    				 document.getElementById("dueDate").value = dueDate;
@@ -77,7 +74,8 @@
    				 document.getElementById("complDate").value = complDate;
 			</script>
             
-            <select th:field="*{assignee}" class="form" style="max-width: 400px">
+            <select th:field="*{assignee}" class="form">
+            	<option value="" selected>Select an employee</option>
         		<option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.name + ' ' + employee.surname}"></option>
     		</select>
             <button type="submit" class="btn"> Update Task</button>

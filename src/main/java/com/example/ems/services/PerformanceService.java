@@ -32,9 +32,10 @@ public class PerformanceService {
 
         for (Employee employee : employees) {
             List<Task> completedTasks = taskService.getCompletedTasksByEmployee(employee);
+            
 
             // Calculate performance and associate it with the employee
-            Performance performance = PerformanceCalculator.calculator(employee, completedTasks);
+            Performance performance = PerformanceCalculator.calculator(employee, completedTasks, employees);
 
             // Save or update performance
             saveOrUpdate(performance);
@@ -60,6 +61,7 @@ public class PerformanceService {
     		existing.setInTimeOne(performance.getInTimeOne());
     		existing.setInTimeNow(performance.getInTimeNow());
     		existing.setInTimeSum(performance.getInTimeSum());
+    		existing.setRaise(performance.getRaise());
     		performanceRepo.save(existing);
     	} else {
     		performanceRepo.save(performance); // Employee doesn't exist -> save new entry

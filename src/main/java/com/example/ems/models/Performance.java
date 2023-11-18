@@ -44,10 +44,10 @@ public class Performance {
 	private Integer taskSum; // Number of finished tasks 2 months ago
 	@Column(name = "in_time_sum")
 	private Integer inTimeSum; // % of finished tasks in time 2 months
-	
+	private Boolean raise; //Up for raise?
 	public Performance() {};
 	
-	public Performance(Employee employee, Integer taskTwo, Integer inTimeTwo, Integer taskOne, Integer inTimeOne, Integer taskNow, Integer inTimeNow, Integer taskSum, Integer inTimeSum) {
+	public Performance(Employee employee, Integer taskTwo, Integer inTimeTwo, Integer taskOne, Integer inTimeOne, Integer taskNow, Integer inTimeNow, Integer taskSum, Integer inTimeSum, Boolean raise) {
 		this.employee = employee;
 		this.taskTwo = taskTwo;
 		this.inTimeTwo = inTimeTwo;
@@ -57,6 +57,7 @@ public class Performance {
 		this.inTimeNow = inTimeNow;
 		this.taskSum = taskSum;
 		this.inTimeSum = inTimeSum;
+		this.raise = raise;
 	}
 	
 	
@@ -119,6 +120,12 @@ public class Performance {
 	}
 	public void setInTimeSum(Integer inTime) {
 		this.inTimeSum = inTime;
+	}
+	public Boolean getRaise() {
+		return raise;
+	}
+	public void setRaise(Boolean raise) {
+		this.raise = raise;
 	}
 	
 }

@@ -60,15 +60,12 @@
 
             <!-- Add hidden form field to handle update -->
             <input type="hidden" th:field="*{id}" />
-
-            <input type="text" th:field="*{name}" class="form">
-
-            <input type="text" th:field="*{surname}" class="form">
-
-            <input type="email" th:field="*{email}" class="form">
-            
-            <input type="text" pattern="[+]?[0-9]*" th:field="*{phone}" class="form">
-
+            <input type="text" th:field="*{name}" class="form" required>
+            <input type="text" th:field="*{surname}" class="form" required>
+            <input type="email" th:field="*{email}" class="form" required> 
+            <input type="text" pattern="[+]?[0-9]*" th:field="*{phone}" class="form" required>
+			<input type="text" th:field="*{department}" placeholder="Department" class="form">
+            <input type="number" step=".01" th:field="*{salary}" placeholder="Salary" class="form">
             <button type="submit" class="btn"> Update Employee</button>
         </form>
 

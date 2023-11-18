@@ -61,6 +61,7 @@
             text-align: center;
             display: inline-block;
             text-decoration: none;
+            transition: background-color 0.3s;
             
             
         }
@@ -77,6 +78,7 @@
             text-align: center;
             display: inline-block;
             text-decoration: none;
+            transition: background-color 0.3s;
         }
         .employee-btn:hover {
         	background-color: #0059ff;
@@ -90,6 +92,7 @@
            color: #fff;
            text-align: center;
            text-decoration: none;
+           transition: background-color 0.3s;
             
         }
         .update-btn:hover {
@@ -103,6 +106,7 @@
             padding: 10px 6px;
             color: #fff;
             text-decoration: none;
+            transition: background-color 0.3s;
         }
         .delete-btn:hover {
             background-color: #c22f3d;
@@ -135,6 +139,7 @@
         <div class="btn-container">
 		<a th:href="@{/showNewTaskForm}" class="btn-action add-task-btn">Add task</a>
 		<a th:href="@{/employees}" class="btn-action employee-btn">Employees</a>
+        <a th:href="@{/performance}" class="btn-action employee-btn">Performance</a>
         </div>
     </div>
     <div class="table-container">
@@ -155,7 +160,7 @@
 				<td th:text="${task.status}"></td>
 				<td th:text="${task.dueDate}"></td>
 				<td th:text="${task.complDate}"></td>
-				<td th:text="${task.assignee.name + ' ' + task.assignee.surname}"></td>
+				<td th:text="${task.assignee != null ? task.assignee.name + ' ' + task.assignee.surname : ' '}"></td>
 				<td><a th:href="@{/showUpdateTaskForm/{id}(id=${task.id})}" class="update-btn">Update</a>
 				<a th:href="@{/deleteTask/{id}(id=${task.id})}" class="delete-btn">Delete</a>
 				</td>

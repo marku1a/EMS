@@ -19,16 +19,20 @@ import jakarta.persistence.GenerationType;
 	private String surname;
 	private String email;
 	private String phone;
+	private String department;
+	private Double salary;
 	
 	@OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Performance performance;
 	
 	public Employee(){};
-	public Employee(String name, String surname, String email, String phone) {
+	public Employee(String name, String surname, String email, String phone, String department, Double salary) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.phone = phone;
+		this.department = department;
+		this.salary = salary;
 	}
 	public Integer getId() {
 		return id;
@@ -64,4 +68,16 @@ import jakarta.persistence.GenerationType;
     public String getFullName() {
         return name + " " + surname;
     }
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+	public Double getSalary() {
+		return salary;
+	}
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
 }

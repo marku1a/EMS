@@ -57,13 +57,12 @@
         <h2>New employee form</h2>
 
         <form action="#" th:action="@{/createNewEmployee}" th:object="${employee}" method="POST">
-            <input type="text" th:field="*{name}" placeholder="Employee First Name" class="form" style="max-width: 400px" >
-
-            <input type="text" th:field="*{surname}" placeholder="Employee Last Name" class="form" style="max-width: 400px">
-
-            <input type="email" th:field="*{email}" placeholder="Employee Email" class="form" style="max-width: 400px">
-            
-            <input type="text" th:field="*{phone}" placeholder="Employee phone number" class="form" style="max-width: 400px">
+            <input type="text" th:field="*{name}" placeholder="Employee First Name" class="form" required>
+            <input type="text" th:field="*{surname}" placeholder="Employee Last Name" class="form" required>
+            <input type="email" th:field="*{email}" placeholder="Employee Email" class="form" required>     
+            <input type="text" th:field="*{phone}" placeholder="Employee phone number" class="form" required>
+            <input type="text" th:field="*{department}" placeholder="Department" class="form">
+            <input type="number" step=".01" th:field="*{salary}" placeholder="Salary" class="form">
 
             <button type="submit" class="btn"> Save Employee</button>
         </form>

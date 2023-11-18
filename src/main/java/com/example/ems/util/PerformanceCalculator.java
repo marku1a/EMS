@@ -12,7 +12,7 @@ import com.example.ems.models.Task;
 
 public class PerformanceCalculator {
 
-	public static Performance calculator(Employee employee, List<Task> tasks) {
+	public static Performance calculator(Employee employee, List<Task> tasks, List<Employee> employees) {
 
 		LocalDate now = LocalDate.now();
 		LocalDate oneAgo = now.minusMonths(1);
@@ -77,8 +77,9 @@ public class PerformanceCalculator {
 			performance.setInTimeTwo(inTime);
 		}
 		
-		
-		
+		double avgSalary = avgSalary(employees);
+		int inTimeS = performance.getInTimeSum();
+		upForRaise(employee, avgSalary, inTimeS, taskTwo, taskOne, performance);
 		
 		return performance;
 }
@@ -94,6 +95,7 @@ public class PerformanceCalculator {
 		return filtered;
 		
 	}
+	
 	private static int inTimeCounter(List<Task> tasks) {
 		int counter = 0;
 		for (Task task : tasks) {
@@ -103,7 +105,24 @@ public class PerformanceCalculator {
 		}
 		return counter;
 	}
-	
+	private static double avgSalary(List<Employee> employees) {
+		int counter = 0;
+		double total = 0;
+		for (Employee employee : employees) {
+			if(employee.getSalary() != null) {
+			total += employee.getSalary();
+			counter++;
+			}
+		}
+		if (counter > 0) {
+		return total/counter;
+		} else return 0.0;
+	}
+	public static void upForRaise(Employee employee, double avgSalary, int inTimeS, int taskTwo, int taskOne, Performance performance) {
+		if(employee.getSalary() != null) {
+		performance.setRaise((employee.getSalary() < avgSalary) && inTimeS > 90 && taskTwo > 0 && taskOne > 0);
+		}
+	}
 	
 	
   
