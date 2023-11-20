@@ -2,8 +2,7 @@
 
 Welcome to the EMS GitHub repository! This application provides a system for managing employees, tasks, and performance metrics. Below, you'll find an overview of the project structure and key components.
 
-## Table of Contents
-- [Project Structure](#project-structure)
+## Project Structure
 - [Entities](#entities)
 - [Controllers](#controllers)
 - [Services](#services)
@@ -11,15 +10,13 @@ Welcome to the EMS GitHub repository! This application provides a system for man
 - [DTO](#dto)
 - [Utilities](#utilities)
 
-## Project Structure
-
 ## Entities
 
 ### Employee
 Represents an employee with details such as name, email, phone, department, and salary.
 
 ### Performance
-Tracks performance metrics of an employee. Shows number of tasks done this month, month before, and two months before as well
+Tracks performance metrics of an employee. Shows number of tasks done this month, last month, and two months ago as well
 as tasks completition rate (%).
 
 ### Role
@@ -30,6 +27,7 @@ Represents tasks assigned to employees, including details like due date, complet
 
 ### User
 Represents system users with details such as name, email, password, and approval status.
+Only approved users by Admin can login.
 
 ### Status (Enum)
 Enumerates task status options like `Completed`, `In_progress`, `Cancelled`, and `Not_assigned`.
