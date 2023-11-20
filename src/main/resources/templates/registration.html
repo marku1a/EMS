@@ -1,80 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Registration</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .alert {
+            text-align: center;
+        }
+
+        .btn-success {
+            background-color: #5cb85c;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-success:hover {
+            background-color: #4cae4c;
+        }
+
+        .form-group a {
+            color: #5cb85c;
+            text-decoration: none;
+        }
+
+        .form-group a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#" th:href="@{/}">EMS</a>
-			</div>
-		</div>
-	</nav>
+<div>
+    <h1>Registration</h1>
+    <div th:if="${param.success}">
+        <div class="alert">Registration successful! Please login</div>
+    </div>
+    <div th:if="${registrationError}">
+        <div class="alert" th:text="${registrationError}"></div>
+    </div>
 
-<br>
-<br>
-	
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+    <form th:action="@{/registration}" method="post" th:object="${user}">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input id="name" class="form-control" th:field="*{name}" required autofocus="autofocus">
+        </div>
 
-				
-				<div th:if="${param.success}">
-					<div class="alert alert-info">Registration successful! Please login</div>
-				</div>
-				<div th:if="${registrationError}">
-    				<div class="alert alert-danger" th:text="${registrationError}"></div>
-				</div>
+        <div class="form-group">
+            <label for="surname">Surname:</label>
+            <input id="surname" class="form-control" th:field="*{surname}" required autofocus="autofocus">
+        </div>
 
-				<h1>Registration</h1>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input id="email" class="form-control" th:field="*{email}" required autofocus="autofocus">
+        </div>
 
-				<form th:action="@{/registration}" method="post" th:object="${user}">
-					<div class="form-group">
-						<label class="control-label" for="name"> First Name </label>
-						<input id="name" class="form-control" th:field="*{name}"
-							required autofocus="autofocus" />
-					</div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input id="password" class="form-control" type="password" th:field="*{password}" required autofocus="autofocus">
+        </div>
 
-					<div class="form-group">
-						<label class="control-label" for="surname"> Last Name </label> <input
-							id="surname" class="form-control" th:field="*{surname}"
-							required autofocus="autofocus" />
-					</div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Register</button>
+            <span>Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
+        </div>
+    </form>
+</div>
 
-					<div class="form-group">
-						<label class="control-label" for="email"> Email </label> <input
-							id="email" class="form-control" th:field="*{email}" required
-							autofocus="autofocus" />
-					</div>
-
-					<div class="form-group">
-						<label class="control-label" for="password"> Password </label> <input
-							id="password" class="form-control" type="password"
-							th:field="*{password}" required autofocus="autofocus" />
-					</div>
-
-					<div class="form-group">
-						<button type="submit" class="btn btn-success">Register</button>
-						<span>Already registered? <a href="/" th:href="@{/login}">Login
-								here</a></span>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 </body>
 </html>
