@@ -1,8 +1,9 @@
 package com.example.ems.initializers;
 import com.example.ems.models.Role;
 
+
+
 import com.example.ems.models.User;
-import com.example.ems.util.Roles;
 import com.example.ems.repositories.UserRepository; 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class AdminInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
        
         if (userRepository.findByEmail("admin@ems.com") == null) {
-          
-            Role adminRole = new Role(Roles.ROLE_ADMIN);
+        	
+        	Role adminRole = new Role("ROLE_ADMIN");
 
             User adminUser = new User("Admin", "User", "admin@ems.com", passEncoder.encode("@dm!n"), Collections.singletonList(adminRole));
             userRepository.save(adminUser);

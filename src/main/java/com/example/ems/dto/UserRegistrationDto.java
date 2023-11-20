@@ -9,6 +9,7 @@ public class UserRegistrationDto {
 	public UserRegistrationDto() {}
 	
 	public UserRegistrationDto(String name, String surname, String email, String password) {
+		super();
 		this.setName(name);
 		this.setSurname(surname);
 		this.setEmail(email);

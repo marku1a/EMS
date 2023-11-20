@@ -2,6 +2,7 @@ package com.example.ems.controllers;
 
 import com.example.ems.services.UserService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,10 +15,9 @@ import com.example.ems.dto.UserRegistrationDto;
 @RequestMapping("/registration")
 public class UserRegistrationController {
 	
+	@Autowired
 	private UserService userService;
-	public UserRegistrationController(UserService userService) {
-		this.userService = userService;
-	}
+	
 	@ModelAttribute("user")
 	public UserRegistrationDto userRegistrationDto() {
 		return new UserRegistrationDto();
@@ -31,7 +31,7 @@ public class UserRegistrationController {
 		userService.save(userRegistrationDto);
 		return "redirect:/registration?success";
 	}
-	
+
 	
 	
 }

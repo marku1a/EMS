@@ -37,7 +37,7 @@ public class Task {
 	private Employee assignee;
 	
 	
-	public Task() {};
+	public Task() {}
 	
 	public Task(String taskName, Status status, LocalDate dueDate, LocalDate complDate, Employee assignee) {
 		this.taskName = taskName;

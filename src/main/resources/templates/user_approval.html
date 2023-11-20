@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .table-container {
+        	width: 80%;
+        	margin:auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow-x: auto;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+           
+        }
+
+        th {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+       
+
+       
+        .add-employee-btn {
+            background-color: #06c258;
+            border: none;
+            padding: 15px;
+            width: 120px;
+            border-radius: 5px;
+            color: #fff;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            
+        }
+        .add-employee-btn:hover {
+        	background-color: #06a94d;
+        	}
+
+        .tasks-btn {
+            background-color: #007bff;
+            border-radius: 5px;
+            border: none;
+            padding: 15px;
+            width: 120px;
+            color: #fff;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            
+        }
+        .tasks-btn:hover {
+        	background-color: #0059ff;
+        	}
+
+        
+
+        .approve-btn {
+            background-color: #17a2b8; 
+            border: none;
+            border-radius: 6px;
+            padding: 10px 5px;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            
+        }
+        .approve-btn:hover {
+            background-color: #1686a6; 
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 6px;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .delete-btn:hover {
+            background-color: #c22f3d;
+        }
+        .id {
+        width: 13px;
+        
+        }
+        .welcome{
+            font-size: 18px;
+            text-align: right;
+        }
+
+        @media (max-width: 600px) {
+            .btn-action {
+                display: block;
+                width: 100%;
+                margin-bottom: 5px;
+                padding: 10px 0px;
+                
+            }
+        }
+        @media (max-width: 900px) {
+            .approve-btn {
+                display: block;
+                width: fit-content;
+                padding: 5px 5px;
+            }
+            .delete-btn {
+                display: block;
+                width:fit-content;
+                padding: 5px 8px;
+            } 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User approval</h1>
+        <div class="btn-container">
+            <a th:href="@{/employees}" class="btn-action tasks-btn">Employees</a>
+            <a th:href="@{/tasks}" class="btn-action tasks-btn">Tasks</a>
+            <a th:href="@{/performance}" class="btn-action tasks-btn">Performance</a>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                    	<th class="id">Id</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user: ${pendingUsers}">
+                		 <td th:if="${user != null}" th:text="${user.id}">User ID</td>
+    					 <td th:if="${user != null}" th:text="${user.name}"></td>
+   						 <td th:if="${user != null}" th:text="${user.surname}"></td>
+  					     <td th:if="${user != null}" th:text="${user.email}"></td>
+    					 <td th:if="${user != null}">
+       						 <form th:action="@{/approveUser/{id}(id=${user.id})}" method="post">
+       						 <button type="submit" class="approve-btn">Approve</button>
+      					     </form>
+      					     <form th:action="@{/deleteUser/{id}(id=${user.id})}" method="post">
+      					     <input type="hidden" name="_method" value="delete"/>
+       						 <button type="submit" class="delete-btn">Delete</button>
+      					     </form>
+   					     </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

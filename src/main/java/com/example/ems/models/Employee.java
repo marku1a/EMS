@@ -25,7 +25,8 @@ import jakarta.persistence.GenerationType;
 	@OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Performance performance;
 	
-	public Employee(){};
+	public Employee(){}
+	
 	public Employee(String name, String surname, String email, String phone, String department, Double salary) {
 		this.name = name;
 		this.surname = surname;

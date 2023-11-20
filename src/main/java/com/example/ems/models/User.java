@@ -1,7 +1,7 @@
 package com.example.ems.models;
 
-import java.util.Collection;
 
+import java.util.Collection;
 
 import jakarta.persistence.Table;
 
@@ -23,11 +23,12 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	private String name;
 	private String surname;
 	private String email;
 	private String password;
+	private Boolean approved;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(	
@@ -35,22 +36,21 @@ public class User {
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
 			)
-	
-	private Collection<Role> role;
+	Collection <Role> roles;
 	
 	public User() {}
 
-	public User(String name, String surname, String email, String password, Collection<Role> role) {
+	public User(String name, String surname, String email, String password, Collection <Role> roles) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
-		this.role = role;
+		this.roles = roles;
 	}
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -77,12 +77,18 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Collection<Role> getRole(){
-		return role;
+	public Boolean getApproved() {
+		return approved;
 	}
-	public void setRole(Collection<Role> role) {
-		this.role = role;
+	public void setApproved(Boolean approved) {
+		this.approved = approved;
 	}
+	public Collection <Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(Collection <Role> roles) {
+        this.roles = roles;
+    }
 	
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 
 
@@ -31,9 +32,11 @@ public class SecurityConfiguration {
 		.authorizeHttpRequests(
 				authorize -> authorize
 						.requestMatchers("/registration").permitAll()
-						.requestMatchers("/js/**").permitAll()
-						.requestMatchers("/css/**").permitAll()
-						.requestMatchers("/img/**").permitAll()
+						.requestMatchers("/user_approval").hasRole("ADMIN")
+						.requestMatchers("/user_approval/approve_user/**").hasRole("ADMIN")
+						.requestMatchers("/employees").hasAnyRole("ADMIN", "USER")
+						.requestMatchers("/tasks").hasAnyRole("ADMIN", "USER")
+						.requestMatchers("/performance").hasAnyRole("ADMIN", "USER")
 						.anyRequest().authenticated()
 		).formLogin(
 				form -> form
@@ -45,9 +48,14 @@ public class SecurityConfiguration {
 				logout -> logout
 						.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 						.permitAll()
-		);
+		);				
 		return http.build();
 	}
+	@Bean
+	public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+	    return new HiddenHttpMethodFilter();
+	}
+	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth

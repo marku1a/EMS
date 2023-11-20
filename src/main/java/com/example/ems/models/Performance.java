@@ -45,7 +45,7 @@ public class Performance {
 	@Column(name = "in_time_sum")
 	private Integer inTimeSum; // % of finished tasks in time 2 months
 	private Boolean raise; //Up for raise?
-	public Performance() {};
+	public Performance() {}
 	
 	public Performance(Employee employee, Integer taskTwo, Integer inTimeTwo, Integer taskOne, Integer inTimeOne, Integer taskNow, Integer inTimeNow, Integer taskSum, Integer inTimeSum, Boolean raise) {
 		this.employee = employee;
