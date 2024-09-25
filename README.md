@@ -3,12 +3,20 @@
 Welcome to the EMS GitHub repository! This application provides a system for managing employees, tasks, and performance metrics. Below, you'll find an overview of the project structure and key components.
 
 ## Project Structure
+- [Preview](#preview)
 - [Entities](#entities)
 - [Controllers](#controllers)
 - [Services](#services)
 - [Security Configuration](#security-configuration)
 - [DTO](#dto)
 - [Utilities](#utilities)
+
+## Preview
+![emp list 1](https://github.com/user-attachments/assets/9fa2d204-50a0-4947-8b5d-dbeb15123e1e)
+![tasks 2](https://github.com/user-attachments/assets/2cfb76a3-2732-4947-99f9-78256520738e)
+![perf 3](https://github.com/user-attachments/assets/67415656-4849-408d-9665-494a85675927)
+![new emp form 4](https://github.com/user-attachments/assets/d774907f-bf91-4456-86a7-6ea0ee56489a)
+![registration 5](https://github.com/user-attachments/assets/2ef1a74a-5ca4-46bc-aae7-353093c4f25a)
 
 ## Entities
 
