@@ -13,10 +13,15 @@ import com.example.ems.services.PerformanceService;
 @RequestMapping
 public class PerformanceController {
 
-	@Autowired
-	private PerformanceService performanceService;
-	
-	@GetMapping("/performance")
+
+	private final PerformanceService performanceService;
+
+
+    public PerformanceController(PerformanceService performanceService) {
+        this.performanceService = performanceService;
+    }
+
+    @GetMapping("/performance")
 	public String showPerformance(Model model) {
 		model.addAttribute("listPerformance", performanceService.getAllPerformances());
 		return "performance";

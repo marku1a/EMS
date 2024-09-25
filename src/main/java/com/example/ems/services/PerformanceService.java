@@ -17,14 +17,15 @@ import java.util.Optional;
 @Service
 public class PerformanceService {
 
-    @Autowired
-    private PerformanceRepository performanceRepo;
-    
-    @Autowired
-    private EmployeeRepository employeeRepo;
-    
-    @Autowired 
-    private TaskService taskService;
+    private final PerformanceRepository performanceRepo;
+    private final EmployeeRepository employeeRepo;
+    private final TaskService taskService;
+
+    public PerformanceService(PerformanceRepository performanceRepo, EmployeeRepository employeeRepo, TaskService taskService) {
+        this.performanceRepo = performanceRepo;
+        this.employeeRepo = employeeRepo;
+        this.taskService = taskService;
+    }
 
     @Transactional
     public void updatePerformance() {

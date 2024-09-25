@@ -18,48 +18,46 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-	
-	@Autowired
-	private UserDetailsService userDetailsService;
+
+	private final UserDetailsService userDetailsService;
+
+	public SecurityConfiguration(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 	@Bean
 	public static BCryptPasswordEncoder passEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
 		.authorizeHttpRequests(
 				authorize -> authorize
-						.requestMatchers("/registration").permitAll()
-						.requestMatchers("/user_approval").hasRole("ADMIN")
-						.requestMatchers("/user_approval/approve_user/**").hasRole("ADMIN")
-						.requestMatchers("/employees").hasAnyRole("ADMIN", "USER")
-						.requestMatchers("/tasks").hasAnyRole("ADMIN", "USER")
-						.requestMatchers("/performance").hasAnyRole("ADMIN", "USER")
+						.requestMatchers("/registration", "/login", "/logout").permitAll()
+						.requestMatchers("/user_approval", "/user_approval/approve_user/**").hasRole("ADMIN")
+						.requestMatchers("/employees", "/tasks", "/performance").hasAnyRole("ADMIN", "USER")
 						.anyRequest().authenticated()
 		).formLogin(
 				form -> form
 						.loginPage("/login")
 						.defaultSuccessUrl("/tasks")
 						.permitAll()
-						
+
 		).logout(
 				logout -> logout
-						.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+						.logoutUrl("/logout")
 						.permitAll()
-		);				
+		);
 		return http.build();
 	}
 	@Bean
 	public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
 	    return new HiddenHttpMethodFilter();
 	}
-	
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth
-				.userDetailsService(userDetailsService)
+			auth.userDetailsService(userDetailsService)
 				.passwordEncoder(passEncoder());
 	}
 }

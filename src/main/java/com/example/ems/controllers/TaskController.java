@@ -1,5 +1,6 @@
 package com.example.ems.controllers;
 
+import com.example.ems.models.Status;
 import com.example.ems.services.EmployeeService;
 import com.example.ems.services.TaskService;
 import com.example.ems.models.Employee;
@@ -15,16 +16,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping
 public class TaskController {
-	
-	@Autowired
-	private TaskService taskService;
-	@Autowired
-	private EmployeeService employeeService;
-	
-	//Show tasks
+
+	private final TaskService taskService;
+	private final EmployeeService employeeService;
+
+    public TaskController(TaskService taskService, EmployeeService employeeService) {
+        this.taskService = taskService;
+        this.employeeService = employeeService;
+    }
+	@ModelAttribute("statusValues")
+	public Status[] getStatusValues() {
+		return Status.values();
+	}
+
+    //Show tasks
 	@GetMapping("/tasks")
     public String showTasks(Model model) {
 		model.addAttribute("listTasks", taskService.getAllTasks());
+		model.addAttribute("statusValues", Status.values());
 		return "tasks";
 	}
 	//Show form for new tasks
@@ -32,8 +41,9 @@ public class TaskController {
 	public String showNewTaskForm(Model model) {
     	Task task = new Task();
 	    model.addAttribute("task", task);
-	    model.addAttribute("employees", employeeService.getAllEmployees()); 
-	    return "new_task";
+	    model.addAttribute("employees", employeeService.getAllEmployees());
+	    model.addAttribute("statusValues", Status.values());
+		return "new_task";
 	}
 	//Create and save new task to database
 	@PostMapping("/createNewTask")
@@ -48,8 +58,9 @@ public class TaskController {
 	public String showUpdateTaskForm(@PathVariable Integer id, Model model) {
 		Task task = taskService.findTaskById(id);
 		model.addAttribute("task", task);
-	    model.addAttribute("employees", employeeService.getAllEmployees()); 
+	    model.addAttribute("employees", employeeService.getAllEmployees());
 	    model.addAttribute("formattedDueDate", task.getDueDate().toString());
+		model.addAttribute("statusValues", Status.values());
 		return "update_task";
 	}
 	//Update task in database

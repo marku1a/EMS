@@ -11,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class TaskService {
-	@Autowired	
+
 	private TaskRepository taskRepo;
+
+	public TaskService(TaskRepository taskRepo) {
+		this.taskRepo = taskRepo;
+	}
 	
 	public List<Task> getAllTasks(){
 		return taskRepo.findAll();

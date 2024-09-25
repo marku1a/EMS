@@ -30,7 +30,11 @@
        .form:focus {
         	border: 2px;
         	outline: solid;
-            outline-color: #87cefa; 
+            outline-color: #87cefa;
+        }
+        .dateLabel {
+            font-size: 1.1rem;
+            padding-left: 5px;
         }
         .btn {
             background-color: #007bff;
@@ -48,7 +52,7 @@
             }
         }
     </style>
-    
+
 </head>
 
 <body>
@@ -62,18 +66,30 @@
             <!-- Add hidden form field to handle update -->
             <input type="hidden" th:field="*{id}" />
             <input type="text" th:field="*{taskName}" class="form" required>
-            <input type="text" th:field="*{status}" class="form" required>
-            <input type="date" th:field="*{dueDate}" th:value="${formattedDueDate}" class="form" required>
-			<script th:inline="javascript">
-   				 var dueDate = /*[[ ${formattedDueDate} ]]*/; // Fetch the formattedDueDate from the model
-   				 document.getElementById("dueDate").value = dueDate;
-			</script>
-			<input type="date" th:field="*{complDate}" th:value="${formattedComplDate}" class="form">
-			<script th:inline="javascript">
-   				 var complDate = /*[[ ${formattedComplDate} ]]*/; 
-   				 document.getElementById("complDate").value = complDate;
-			</script>
-            
+            <select th:field="*{status}" class="form" required>
+                <option th:each="statusOpt : ${statusValues}"
+                        th:value="${statusOpt}"
+                        th:text="${statusOpt.value}">
+                </option>
+            </select>
+            <div class="form-group">
+                <label for="dueDate" class="dateLabel">Due Date:</label>
+                <input type="date" th:field="*{dueDate}" th:value="${formattedDueDate}" class="form" id="dueDate" required>
+            </div>
+            <script th:inline="javascript">
+                var dueDate = /*[[ ${formattedDueDate} ]]*/;
+                document.getElementById("dueDate").value = dueDate;
+            </script>
+
+            <div class="form-group">
+                <label for="complDate" class="dateLabel">Completion Date:</label>
+                <input type="date" th:field="*{complDate}" th:value="${formattedComplDate}" class="form" id="complDate">
+            </div>
+            <script th:inline="javascript">
+                var complDate = /*[[ ${formattedComplDate} ]]*/;
+                document.getElementById("complDate").value = complDate;
+            </script>
+
             <select th:field="*{assignee}" class="form">
             	<option value="" selected>Select an employee</option>
         		<option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.name + ' ' + employee.surname}"></option>

@@ -22,11 +22,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping
 public class EmployeeController {
 
-	@Autowired
-	private EmployeeService employeeService;
+	private final EmployeeService employeeService;
 
-	
-	//Shows all employees
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    //Shows all employees
 	@GetMapping("/employees")
 	public String showEmployees(Model model) {
 		model.addAttribute("listEmployees", employeeService.getAllEmployees());

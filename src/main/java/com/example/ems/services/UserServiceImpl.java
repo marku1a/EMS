@@ -23,17 +23,17 @@ import com.example.ems.repositories.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
-	@Autowired
-	private UserRepository userRepo;
-	
-	@Autowired
-	private BCryptPasswordEncoder passEncoder;
-	
-	
+
+	private final UserRepository userRepo;
+	private final BCryptPasswordEncoder passEncoder;
+
+    public UserServiceImpl(UserRepository userRepo, BCryptPasswordEncoder passEncoder) {
+        this.userRepo = userRepo;
+		this.passEncoder = passEncoder;
+    }
 
 
-	@Override
+    @Override
 	public User save(UserRegistrationDto registrationDto) {
 		User user = new User(registrationDto.getName(),
 							 registrationDto.getSurname(),

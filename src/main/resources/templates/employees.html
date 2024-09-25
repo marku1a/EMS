@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Management System</title>
-    
+
     <style>
         body {
             background-color: #f0f0f0;
@@ -49,7 +49,8 @@
             text-align: left;
             white-space: nowrap;
             overflow: hidden;
-           
+            text-overflow: ellipsis;
+            max-width: 150px;
         }
 
         th {
@@ -60,9 +61,39 @@
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-       
 
-       
+        td:hover {
+            overflow: visible;
+            white-space: normal;
+        }
+
+        td {
+            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+
+        td::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 100%;  /* Move tooltip to the right of the cell */
+            top: 0;
+            background-color: #fff;
+            color: #000;
+            padding: 5px;
+            border-radius: 4px;
+            display: none;
+            z-index: 1;
+            word-wrap: break-word;  /* Allow text wrapping */
+            max-width: 200px;  /* Set a minimum width */
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
+            width: fit-content;
+        }
+
+
         .add-employee-btn {
             background-color: #06c258;
             border: none;
@@ -74,7 +105,7 @@
             display: inline-block;
             text-decoration: none;
             transition: background-color 0.3s;
-            
+
         }
         .add-employee-btn:hover {
         	background-color: #06a94d;
@@ -91,16 +122,16 @@
             display: inline-block;
             text-decoration: none;
             transition: background-color 0.3s;
-            
+
         }
         .tasks-btn:hover {
         	background-color: #0059ff;
         	}
 
-        
+
 
         .update-btn {
-            background-color: #17a2b8; 
+            background-color: #17a2b8;
             border: none;
             border-radius: 6px;
             padding: 10px 5px;
@@ -108,10 +139,10 @@
             text-align: center;
             text-decoration: none;
             transition: background-color 0.3s;
-            
+
         }
         .update-btn:hover {
-            background-color: #1686a6; 
+            background-color: #1686a6;
         }
 
         .delete-btn {
@@ -126,11 +157,10 @@
         .delete-btn:hover {
             background-color: #c22f3d;
         }
-        .id {
-        width: 13px;
-        
+        .idCol {
+            width: 1rem;
         }
-        .welcome{
+        .welcome {
             font-size: 18px;
             text-align: right;
         }
@@ -141,10 +171,10 @@
                 width: 100%;
                 margin-bottom: 5px;
                 padding: 10px 0px;
-                
+
             }
         }
-        @media (max-width: 900px) {
+        @media (max-width: 1350px) {
             .update-btn {
                 display: block;
                 width: fit-content;
@@ -154,7 +184,7 @@
                 display: block;
                 width:fit-content;
                 padding: 5px 8px;
-            } 
+            }
         }
     </style>
 </head>
@@ -170,7 +200,7 @@
             <table>
                 <thead>
                     <tr>
-                    	<th class="id">Id</th>
+                    	<th class="idCol">Id</th>
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Email</th>
@@ -178,7 +208,7 @@
                         <th>Department</th>
                         <th>Salary</th>
                         <th>Actions</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
